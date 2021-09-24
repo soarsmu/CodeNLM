@@ -13,6 +13,8 @@
 Please use docker `jiekeshi/vocab:v1`
 
 ## Dataset
+sample data https://drive.google.com/file/d/1m1ZVN9E58FXE6i9uzsbG6vJU2IOWoq75/view?usp=sharing
+
 Java corpus https://doi.org/10.7488/ds/1690 
 
 C corpus https://doi.org/10.5281/zenodo.3628775 
