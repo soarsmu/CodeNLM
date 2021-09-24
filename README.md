@@ -1,22 +1,3 @@
-# OpenVocabNLMs
-Contains the code for our ICSE 2020 submission: open vocabulary language model for source code that uses the byte pair encoding algorithm to learn a segmentation of code tokens into subtokens. 
-
-If you use our code/implementation, datasets or pre-trained models please cite our paper:
-@inproceedings{Karampatsis2020ICSE,\
-author = {Karampatsis, Rafael - Michael and Babii, Hlib and Robbes, Romain and Sutton, Charles and Janes, Andrea},\
-title = {{Big Code != Big Vocabulary: Open-Vocabulary Models for Source code}},\
-year = {2020},\
-publisher = {ACM},\
-url = {https://doi.org/10.1145/3377811.3380342}, \
-doi = {10.1145/3377811.3380342},\
-booktitle = {Proceedings of the 42nd International Conference on Software Engineering},\
-pages = {},\
-numpages = {11},\
-location = {Seoul, South Korea},\
-series = {ICSE ’20}\
-}
-
-
 # Code Structure
 **non-ascii_sequences_to_unk.py** is a preprocessing script that can be used to remove non-ascii sequences from the data and replace them with a special symbol.
 
@@ -26,24 +7,17 @@ series = {ICSE ’20}\
 
 **code_nlm.py** contains the implementation of our NLM for code and supports training, perplexity/cross-entropy calculation, code-completion simulation as well as dynamic versions of the test scenarios. The updated implementation has also some new features, previously not present in the code. That is measuring identifier specific performance for code completion. Another new feature implements a simple n-gram cache for identifiers that better simulates use of the model in an IDE where such information would be present. In order to use the identifier features a file containing identifier information must be provided through the options. 
 
-# Installation
+# Usage
 
-Python>2.7.6 or Python==3.6 is required!
-Python>3.6 is not supported due to the tensorflow version not supporting it.
+## Installation
+Please use docker `jiekeshi/vocab:v1`
 
-```shell script
-git clone https://github.com/mast-group/OpenVocabCodeNLM
-cd OpenVocabCodeNLM
-pip install -r requirements.txt #python2
-pip3 install -r requirements.txt #python3
-```
-The experiments in the paper were performed using Python 2.7.14 but we have currently not experienced any unresolved issue with Python 3. </br>
-In case you encounter any issues please open a new issue entry.
+## Dataset
+Java corpus https://doi.org/10.7488/ds/1690 
 
+C corpus https://doi.org/10.5281/zenodo.3628775 
 
-# Usage Instructions
-If you want to try the implementation unzip the directory containing the sample data.
-The sample data contain the small training set, validation, and test set used in the paper with a BPE encdoding size of 10000.
+Python corpus https://doi.org/10.5281/zenodo.3628784
 
 ## Option Constants
 Let's first define constants for pointing to the data and network parameters. You'll need to modify these to point to your own data and satisfy the hyperparameters that you want to use.
@@ -78,13 +52,10 @@ CHECKPOINT_EVERY=5000 # This is also the default.
 
 
 # Understanding boolean options.
-# Most boolean options are set to False  by default.
+# Most boolean options are set to False by default.
 # For using any boolean option set it to True.
 # For instance for using a GRU instead of an LSTM add to your command the option --gru True.
 ```
-
-
-We next present the various scenarios supported by our implementation.
 
 ## Training
 The training scenario creates a global model by training on the provided to it training data.
@@ -149,8 +120,6 @@ python code_nlm.py --completion True --dynamic True --data_path $DATA_HOME --tra
 
 ### Predictability
 Similar to testing but calculates the average entropy of the files instead of the per token one.
-
-
 
 # Preprocessing
 
