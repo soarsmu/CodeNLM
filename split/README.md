@@ -85,33 +85,7 @@ The source code must be mined to extract and create two string frequency tables,
 
 Once we have our frequency tables and the lists of common prefixes and suffixes, we can call the splitting function on Samurai, providing the token, the context and the lists of words: `samurai.Split(token, context, prefixes, suffixes)`.
 
-```go
-package main
-
-import (
-    "fmt"
-
-    "github.com/eroatta/token/samurai"
-    "github.com/eroatta/token/lists"
-)
-
-func main() {
-    localFreqTable := samurai.NewFrequencyTable()
-    localFreqTable.SetOccurrences("http", 100)
-    localFreqTable.SetOccurrences("response", 100)
-
-    globalFreqTable := samurai.NewFrequencyTable()
-    globalFreqTable.SetOccurrences("http", 120)
-    globalFreqTable.SetOccurrences("response", 120)
-
-    tokenContext := samurai.NewTokenContext(localFreqTable, globalFreqTable)
-
-    splitted := samurai.Split("httpresponse", tokenContext, lists.Prefixes, lists.Suffixes)
-
-    fmt.Println(splitted) // "http response"
-}
-```
-
+For Samurai, use the spiral python library
 ### GenTest
 
 GenTest requires a similarity calculator, because it relies on the fact that words (expanded words) should be found co-located in the documentation or in general text.

@@ -132,3 +132,10 @@ data/
 split/.idea/modules.xml
 split/.idea/token.iml
 split/.idea/vcs.xml
+.DS_Store
+split/samurai/.idea/inspectionProfiles/profiles_settings.xml
+split/samurai/.idea/inspectionProfiles/Project_Default.xml
+split/samurai/.idea/misc.xml
+split/samurai/.idea/modules.xml
+split/samurai/.idea/samurai.iml
+split/samurai/.idea/vcs.xml
