@@ -129,3 +129,6 @@ dmypy.json
 .pyre/
 
 data/
+split/.idea/modules.xml
+split/.idea/token.iml
+split/.idea/vcs.xml
