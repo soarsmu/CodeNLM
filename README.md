@@ -10,7 +10,7 @@
 # Usage
 
 ## Installation
-Please use docker `jiekeshi/vocab:v1`
+Please use docker `jiekeshi/vocab:v2`
 
 ## Dataset
 Java corpus https://doi.org/10.7488/ds/1690 
