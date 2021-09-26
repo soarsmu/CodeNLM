@@ -69,11 +69,11 @@ extern "C" {
 #endif
 
 
-extern GoSlice Run_gentest(GoString p0);
+extern char* Run_gentest(char* p0);
 
-extern GoString Run_greedy(GoString p0);
+extern char* Run_greedy(char* p0);
 
-extern GoString Run_conserv(GoString p0);
+extern char* Run_conserv(char* p0);
 
 #ifdef __cplusplus
 }
