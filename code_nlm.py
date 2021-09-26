@@ -1,7 +1,6 @@
 # some structure based on    https://github.com/wpm/tfrnnlm/blob/master/tfrnnlm/rnn.py
 #https://github.com/tensorflow/tensorflow/pull/2580/files#diff-083dd112b4600ecbaf63b2070951aad8
 
-
 from __future__ import print_function
 
 import ast
