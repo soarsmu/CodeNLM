@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Directory that contains train/validation/test data etc.
-DATA_HOME=data/sample_data/java/
+DATA_HOME=./data/sample_data/java/
 # Directory in which the model will be saved.
-MODEL_DIR=data/sample_data/java/model
+MODEL_DIR=./data/sample_data/java/model
 mkdir $MODEL_DIR
 
 # Filenames
@@ -43,7 +43,7 @@ CUDA_VISIBLE_DEVICES=5 python code_nlm.py --data_path $DATA_HOME --train_dir $MO
 
 
 # Testing the model (Calculating test set entropy) 
-CUDA_VISIBLE_DEVICES=5 python code_nlm.py --test True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True
+# CUDA_VISIBLE_DEVICES=5 python code_nlm.py --test True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True
 
 # # Test a dynamically adapted version of the model.
 # # Batch size must always be set to 1 for this scenario!
