@@ -1,6 +1,7 @@
 package main
 
 import (
+	"C"
 	"fmt"
 	"github.com/eroatta/token/conserv"
 	"github.com/eroatta/token/expansion"
@@ -8,7 +9,8 @@ import (
 	"github.com/eroatta/token/greedy"
 	"github.com/eroatta/token/lists"
 )
-func run_gentest() {
+//export Run_gentest
+func Run_gentest(s string) []string {
 	var simCalculator gentest.SimilarityCalculator
 	context := lists.NewBuilder().Add(lists.Dictionary.Elements()...).
 		Add(lists.KnownAbbreviations.Elements()...).
@@ -16,32 +18,30 @@ func run_gentest() {
 		Build()
 	possibleExpansions := expansion.NewSetBuilder().AddList(lists.Dictionary).Build()
 
-	splitted := gentest.Split("httpResponse", simCalculator, context, possibleExpansions)
+	splitted := gentest.Split(s, simCalculator, context, possibleExpansions)
 
-	fmt.Println(splitted) // [http response]
+	fmt.Println(splitted)
+	return splitted
+
 }
-
-func run_greedy() {
+//export Run_greedy
+func Run_greedy(s string) string {
 	list := lists.NewBuilder().Add(lists.Dictionary.Elements()...).
 		Add(lists.KnownAbbreviations.Elements()...).
 		Add(lists.Stop.Elements()...).
 		Build()
-	splitted := greedy.Split("httpResponse", list)
+	splitted := greedy.Split(s, list)
 
-	fmt.Println(splitted) // "http response"
+	fmt.Println(splitted)
+	return splitted
 }
+//export Run_conserv
+func Run_conserv(s string) string {
+	splitted := conserv.Split(s)
 
-func run_conserv() {
-	splitted := conserv.Split("httpResponse")
-
-	fmt.Println(splitted) // "http response"
+	fmt.Println(splitted)
+	return splitted
 }
 
 func main() {
-	fmt.Println("gentest")
-	run_gentest()
-	fmt.Println("greedy")
-	run_greedy()
-	fmt.Println("conserv")
-	run_conserv()
 }
