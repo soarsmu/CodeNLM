@@ -129,3 +129,8 @@ dmypy.json
 .pyre/
 
 data/
+split/samurai/.DS_Store
+.DS_Store
+split/.idea/modules.xml
+split/.idea/split.iml
+split/.idea/vcs.xml
