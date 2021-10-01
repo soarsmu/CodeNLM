@@ -5,8 +5,8 @@ package greedy
 import (
 	"strings"
 
-	"github.com/eroatta/token/lists"
-	"github.com/eroatta/token/marker"
+	"split/lists"
+	"split/marker"
 )
 
 // Separator specifies the current separator.
@@ -44,6 +44,42 @@ func Split(token string, list lists.List) string {
 			chosenSplittings := chooseSplittings(preffixSplittings, suffixSplittings, list)
 
 			splitToken = append(splitToken, chosenSplittings...)
+		}
+	}
+
+	return strings.Join(splitToken, Separator)
+}
+
+func PrefixSplit(token string, list lists.List) string {
+	preprocessedToken := marker.OnDigits(token)
+	preprocessedToken = marker.OnLowerToUpperCase(preprocessedToken)
+	preprocessedToken = strings.ToLower(preprocessedToken)
+
+	splitToken := make([]string, 0, 10)
+	for _, s := range marker.SplitBy(preprocessedToken) {
+		if list.Contains(s) {
+			splitToken = append(splitToken, s)
+		} else {
+			preffixSplittings := marker.SplitBy(findPrefix(s, "", list))
+			splitToken = append(splitToken, preffixSplittings...)
+		}
+	}
+
+	return strings.Join(splitToken, Separator)
+}
+
+func SuffixSplit(token string, list lists.List) string {
+	preprocessedToken := marker.OnDigits(token)
+	preprocessedToken = marker.OnLowerToUpperCase(preprocessedToken)
+	preprocessedToken = strings.ToLower(preprocessedToken)
+
+	splitToken := make([]string, 0, 10)
+	for _, s := range marker.SplitBy(preprocessedToken) {
+		if list.Contains(s) {
+			splitToken = append(splitToken, s)
+		} else {
+			suffixSplittings := marker.SplitBy(findSuffix(s, "", list))
+			splitToken = append(splitToken, suffixSplittings...)
 		}
 	}
 
