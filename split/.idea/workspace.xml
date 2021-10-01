@@ -7,6 +7,27 @@
     <list default="true" id="fd7c82d0-9adb-4157-aa56-37cbf2064542" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/amap/amap.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amap/amap_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amap/pattern.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/amap/pattern_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic/basic.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/basic/basic_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/expansion/set.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/expansion/set_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gentest/filter_rules.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gentest/filter_rules_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gentest/gentest.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gentest/gentest_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gentest/potential_split.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gentest/potential_split_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/greedy/greedy.go" beforeDir="false" afterPath="$PROJECT_DIR$/greedy/greedy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/greedy/greedy_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/split.h" beforeDir="false" afterPath="$PROJECT_DIR$/main/split.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/split_so_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/split_so_demo.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +37,14 @@
   <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
@@ -70,6 +99,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

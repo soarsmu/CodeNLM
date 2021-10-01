@@ -69,7 +69,25 @@ extern "C" {
 #endif
 
 
-extern char* Run_gentest(char* p0);
+////export Run_gentest
+//func Run_gentest(val *C.char ) *C.char  {
+//	var s = C.GoString(val)
+//	var simCalculator gentest.SimilarityCalculator
+//	context := lists.NewBuilder().Add(lists.Dictionary.Elements()...).
+//		Add(lists.KnownAbbreviations.Elements()...).
+//		Add(lists.Stop.Elements()...).
+//		Build()
+//	possibleExpansions := expansion.NewSetBuilder().AddList(lists.Dictionary).Build()
+//
+//	splitted := gentest.Split(s, simCalculator, context, possibleExpansions)
+//	ret := strings.Join(splitted, " ")
+//	fmt.Println(ret)
+//	return C.CString(ret)
+//}
+
+extern char* Run_greedy_suffix(char* p0);
+
+extern char* Run_greedy_prefix(char* p0);
 
 extern char* Run_greedy(char* p0);
 

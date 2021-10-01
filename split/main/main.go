@@ -3,28 +3,52 @@ package main
 import (
 	"C"
 	"fmt"
-	"github.com/eroatta/token/conserv"
-	"github.com/eroatta/token/expansion"
-	"github.com/eroatta/token/gentest"
-	"github.com/eroatta/token/greedy"
-	"github.com/eroatta/token/lists"
-	"strings"
+	"split/conserv"
+	"split/greedy"
+	"split/lists"
 )
-//export Run_gentest
-func Run_gentest(val *C.char ) *C.char  {
+////export Run_gentest
+//func Run_gentest(val *C.char ) *C.char  {
+//	var s = C.GoString(val)
+//	var simCalculator gentest.SimilarityCalculator
+//	context := lists.NewBuilder().Add(lists.Dictionary.Elements()...).
+//		Add(lists.KnownAbbreviations.Elements()...).
+//		Add(lists.Stop.Elements()...).
+//		Build()
+//	possibleExpansions := expansion.NewSetBuilder().AddList(lists.Dictionary).Build()
+//
+//	splitted := gentest.Split(s, simCalculator, context, possibleExpansions)
+//	ret := strings.Join(splitted, " ")
+//	fmt.Println(ret)
+//	return C.CString(ret)
+//}
+//export Run_greedy_suffix
+func Run_greedy_suffix(val *C.char ) *C.char  {
 	var s = C.GoString(val)
-	var simCalculator gentest.SimilarityCalculator
-	context := lists.NewBuilder().Add(lists.Dictionary.Elements()...).
+	list := lists.NewBuilder().Add(lists.Dictionary.Elements()...).
 		Add(lists.KnownAbbreviations.Elements()...).
 		Add(lists.Stop.Elements()...).
 		Build()
-	possibleExpansions := expansion.NewSetBuilder().AddList(lists.Dictionary).Build()
+	splitted := greedy.SuffixSplit(s, list)
 
-	splitted := gentest.Split(s, simCalculator, context, possibleExpansions)
-	ret := strings.Join(splitted, " ")
-	fmt.Println(ret)
-	return C.CString(ret)
+	fmt.Println(splitted)
+	return C.CString(splitted)
 }
+
+//export Run_greedy_prefix
+func Run_greedy_prefix(val *C.char ) *C.char  {
+	var s = C.GoString(val)
+	list := lists.NewBuilder().Add(lists.Dictionary.Elements()...).
+		Add(lists.KnownAbbreviations.Elements()...).
+		Add(lists.Stop.Elements()...).
+		Build()
+	splitted := greedy.PrefixSplit(s, list)
+
+	fmt.Println(splitted)
+	return C.CString(splitted)
+}
+
+
 //export Run_greedy
 func Run_greedy(val *C.char ) *C.char  {
 	var s = C.GoString(val)
@@ -37,6 +61,8 @@ func Run_greedy(val *C.char ) *C.char  {
 	fmt.Println(splitted)
 	return C.CString(splitted)
 }
+
+
 //export Run_conserv
 func Run_conserv(val *C.char ) *C.char  {
 	var s = C.GoString(val)
@@ -47,7 +73,8 @@ func Run_conserv(val *C.char ) *C.char  {
 }
 
 func main() {
-	Run_greedy(C.CString("httpResponse"))
-	Run_conserv(C.CString("httpResponse"))
-	Run_gentest(C.CString("httpResponse"))
+	Run_greedy_prefix(C.CString("httpResponse"))
+	Run_greedy_suffix(C.CString("httpResponse"))
+
+	//Run_conserv(C.CString("httpResponse"))
 }

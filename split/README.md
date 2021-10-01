@@ -74,7 +74,11 @@ result = so.Run_gentest(c_char_p("httpResponse".encode("utf-8")))
 
 ```
 
-
+To re-compile the so file, under the `main` directory
+```bash
+go build -buildmode=c-shared split.so main.go 
+```
 ## License
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
+
