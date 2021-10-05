@@ -1,7 +1,3 @@
-# some structure based on    https://github.com/wpm/tfrnnlm/blob/master/tfrnnlm/rnn.py
-#https://github.com/tensorflow/tensorflow/pull/2580/files#diff-083dd112b4600ecbaf63b2070951aad8
-
-
 from __future__ import print_function
 
 import ast
@@ -305,6 +301,7 @@ class NLM(object):
                     epoch_log_perp_unnorm += np.sum(loss)
                     epoch_total_weights += np.sum(sum(target_weights))
                     # epoch_total_weights += np.sum(sum(sub_target_weights))
+                print("Start validation...")
                 train_log_perplexity = epoch_log_perp_unnorm / epoch_total_weights
                 train_perplexity = math.exp(train_log_perplexity) if train_log_perplexity < 300 else float("inf")
 
@@ -1213,7 +1210,7 @@ class NLM(object):
                         if FLAGS.token_model and correct_token == '-UNK-':
                             break
                         if (correct_token == '-UNK-' or '-UNK-' in correct_subtokens) and FLAGS.completion_unk_wrong:
-                                break
+                            break
                         if verbose: print(prob, prediction)
                         if not correct_found:
                             rank += 1
@@ -1234,6 +1231,7 @@ class NLM(object):
                                     id_acc5 += 1.0
                                 if rank <= 10:
                                     id_acc10 += 1.0
+                            break
                     if not correct_found:
                             rank += 1
                     # if is_id: print(correct_token.replace('@@', ''), full_tokens, '\n')
