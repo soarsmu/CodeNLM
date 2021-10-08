@@ -11,7 +11,7 @@ TRAIN_FILE=java_training_slp_pre_enc_bpe_10000
 VALIDATION_FILE=java_validation_slp_pre_enc_bpe_10000
 TEST_FILE=java_test_slp_pre_enc_bpe_10000
 TEST_PROJ_NAMES_FILE=testProjects
-ID_MAP_FILE=sample_data/java/id_map_java_test_slp_pre_bpe_10000
+ID_MAP_FILE=sample_data/java_test/id_map_java_test_slp_pre_bpe_10000
 
 # Maximum training epochs
 EPOCHS=50
@@ -36,21 +36,21 @@ CHECKPOINT_EVERY=5000 # This is also the default.
 
 
 # Train a small java model for 1 epoch.
-CUDA_VISIBLE_DEVICES=5 python code_nlm.py --data_path $DATA_HOME --train_dir $MODEL_DIR --train_filename $TRAIN_FILE --validation_filename $VALIDATION_FILE --gru True --hidden_size $STATE_DIMS  --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True --steps_per_checkpoint $CHECKPOINT_EVERY --max_epoch $EPOCHS
+CUDA_VISIBLE_DEVICES=2 python code_nlm.py --data_path $DATA_HOME --train_dir $MODEL_DIR --train_filename $TRAIN_FILE --validation_filename $VALIDATION_FILE --gru True --hidden_size $STATE_DIMS  --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True --steps_per_checkpoint $CHECKPOINT_EVERY --max_epoch $EPOCHS
 
 # Because we are using the default values we could have shortened the command to:
 # python code_nlm.py --data_path $DATA_HOME --train_dir $MODEL_DIR --train_filename $TRAIN_FILE --validation_filename $VALIDATION_FILE --gru True --word_level_perplexity True --cross_entropy True --max_epoch $EPOCHS
 
 
 # Testing the model (Calculating test set entropy) 
-CUDA_VISIBLE_DEVICES=5 python code_nlm.py --test True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True
+# CUDA_VISIBLE_DEVICES=2 python code_nlm.py --test True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True
 
 # # Test a dynamically adapted version of the model.
 # # Batch size must always be set to 1 for this scenario!
 # python code_nlm.py --dynamic_test True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size 1 --word_level_perplexity True --cross_entropy True --test_proj_filename $TEST_PROJ_NAMES_FILE
 
 # # Code completion
-# python code_nlm.py --completion True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size $BATCH_SIZE
+# CUDA_VISIBLE_DEVICES=3 python code_nlm.py --completion True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size $BATCH_SIZE
 
 # # Dynamic Code Completion
 # python code_nlm.py --completion True --dynamic True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size $BATCH_SIZE  --test_proj_filename $TEST_PROJ_NAMES_FILE
