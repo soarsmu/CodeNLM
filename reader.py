@@ -5,6 +5,7 @@ from itertools import chain
 import collections
 import getopt
 import numpy as np
+import time
 import sys
 import tensorflow as tf
 
@@ -212,12 +213,14 @@ class dataset(object):
         to_fill = num_steps * batch_size - remaining_tok_cnt + 1 # the last +1 is for target of last times ep
         to_fill_array = np.full(to_fill, self.vocab[EMPTY_WORD], dtype=int)
         for i in range(nbatches - 1):
+            
             ip_range = raw_data[(i * batch_size * num_steps): (i + 1) * (batch_size * num_steps)]
             tar_range = raw_data[(i * batch_size * num_steps) + 1: (i + 1) * (batch_size * num_steps) + 1]
             ip_wt_range = np.ones(len(tar_range), dtype=float)
             contexts = np.stack((np.array_split(ip_range, batch_size)), axis=0)
             targets = np.stack((np.array_split(tar_range, batch_size)), axis=0)
             weights = np.stack((np.array_split(ip_wt_range, batch_size)), axis=0)
+            
             yield(contexts, targets, weights)
         # Yield to fill
         ip_range = np.concatenate((raw_data[max_index_covered:], to_fill_array[:-1]))

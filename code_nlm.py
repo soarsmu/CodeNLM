@@ -274,6 +274,7 @@ class NLM(object):
                 for step, (context, target, target_weights) in enumerate(
                                 train_data.batch_producer_memory_efficient(self.batch_size, self.num_steps)):
                     # Every steps_per_checkpoint steps run validation and print perplexity/entropy.
+                    
                     if step % FLAGS.steps_per_checkpoint == 0:
                         print('Train steps:', step)
                         if step >0:
@@ -301,6 +302,7 @@ class NLM(object):
                     epoch_log_perp_unnorm += np.sum(loss)
                     epoch_total_weights += np.sum(sum(target_weights))
                     # epoch_total_weights += np.sum(sum(sub_target_weights))
+                    
                 print("Start validation...")
                 train_log_perplexity = epoch_log_perp_unnorm / epoch_total_weights
                 train_perplexity = math.exp(train_log_perplexity) if train_log_perplexity < 300 else float("inf")
@@ -1100,7 +1102,7 @@ class NLM(object):
                     continue
                 else:
                     tokens_done += 1
-                    identifiers += 1
+                    
                     if not id_map is None and is_id:
                         identifiers += 1
                         file_identifiers += 1
@@ -1221,15 +1223,7 @@ class NLM(object):
                             correct_found = True
                             if verbose: print('MRR:', mrr / tokens_done)
                             if verbose: print()
-                            id_mrr += 1.0 / rank
-                            if rank <= 1:
-                                id_acc1 += 1.0
-                            if rank <= 3:
-                                id_acc3 += 1.0
-                            if rank <= 5:
-                                id_acc5 += 1.0
-                            if rank <= 10:
-                                id_acc10 += 1.0
+                            
                             if is_id:
                                 id_mrr += 1.0 / rank
                                 if rank <= 1:
@@ -1300,7 +1294,7 @@ class NLM(object):
                 # Search can stop earlier if the best current candidate has score worst than that
                 # of the worst one of the initial full_tokens since it would be pointless to further continue the search
                 search_iterations = 0
-                while full_tokens_scored < 5000 and prob_mass <= satisfaction_prob and search_iterations < 8:
+                while full_tokens_scored < 5000 and prob_mass <= satisfaction_prob and search_iterations < 5:
                     search_iterations += 1
                     # Create a beam of new candidates until 500 full tokens have been produced
                     to_expand = []
@@ -1437,15 +1431,6 @@ class NLM(object):
                         if verbose: print('MRR:', mrr / tokens_done)
                         if verbose: print()
                         
-                        id_mrr += 1.0 / (i + 1)
-                        if (i + 1) <= 1:
-                            id_acc1 += 1.0
-                        if (i + 1) <= 3:
-                            id_acc3 += 1.0
-                        if (i + 1) <= 5:
-                            id_acc5 += 1.0
-                        if (i + 1) <= 10:
-                            id_acc10 += 1.0
                         if is_id:
                             id_mrr += 1.0 / (i + 1)
                             if (i + 1) <= 1:
@@ -1488,16 +1473,11 @@ class NLM(object):
                     [self.train_step, self.cost, self.next_state, self.loss, self.iteration], feed_dict)
 
             print(files_done, 'MRR:', mrr / tokens_done, flush=True)
-            print(id_mrr / identifiers, id_acc1 / identifiers, id_acc3 / identifiers, \
-                    id_acc5 / identifiers, id_acc10 / identifiers, flush=True)
+            
             if not id_map is None :
+                
                 print(id_mrr / identifiers, id_acc1 / identifiers, id_acc3 / identifiers, \
                     id_acc5 / identifiers, id_acc10 / identifiers, flush=True)
-                if file_identifiers > 0:
-                    print('File cache recall', ids_in_cache / file_identifiers, flush=True)
-                    print('Project cache recall', ids_in_project_cache / file_identifiers, flush=True)
-                    print('File context recall', context_history_in_ngram_cache / file_identifiers, flush=True)
-                    print('Project context recall', context_history_in_ngram_project_cache / file_identifiers, flush=True)
 
         print('Tokens scored:', tokens_done, flush=True)
         return mrr / tokens_done
