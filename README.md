@@ -10,7 +10,7 @@
 # Usage
 
 ## Installation
-Please use docker `jiekeshi/vocab:v1`
+Please use docker `jiekeshi/vocab:v2`
 
 ## Dataset
 sample data https://drive.google.com/file/d/1m1ZVN9E58FXE6i9uzsbG6vJU2IOWoq75/view?usp=sharing

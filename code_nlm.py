@@ -1,7 +1,3 @@
-# some structure based on    https://github.com/wpm/tfrnnlm/blob/master/tfrnnlm/rnn.py
-#https://github.com/tensorflow/tensorflow/pull/2580/files#diff-083dd112b4600ecbaf63b2070951aad8
-
-
 from __future__ import print_function
 
 import ast
@@ -305,6 +301,7 @@ class NLM(object):
                     epoch_log_perp_unnorm += np.sum(loss)
                     epoch_total_weights += np.sum(sum(target_weights))
                     # epoch_total_weights += np.sum(sum(sub_target_weights))
+                print("Start validation...")
                 train_log_perplexity = epoch_log_perp_unnorm / epoch_total_weights
                 train_perplexity = math.exp(train_log_perplexity) if train_log_perplexity < 300 else float("inf")
 
@@ -336,9 +333,9 @@ class NLM(object):
                 if len(previous_valid_log_ppx) > 1 and validation_log_perplexity >= previous_valid_log_ppx[-1]:
                     new_learning_rate = new_learning_rate * config.lr_decay
 
-                # If validation perplexity has not improved over the last 5 epochs, stop training
-                if new_learning_rate == 0.0 or (len(previous_valid_log_ppx) > 4 and validation_log_perplexity > max(previous_valid_log_ppx[-5:])):
-                    raise StopTrainingException()
+                # # If validation perplexity has not improved over the last 5 epochs, stop training
+                # if new_learning_rate == 0.0 or (len(previous_valid_log_ppx) > 4 and validation_log_perplexity > max(previous_valid_log_ppx[-5:])):
+                #     raise StopTrainingException()
 
                 previous_valid_log_ppx.append(validation_log_perplexity)
                 epoch += 1
@@ -976,7 +973,7 @@ class NLM(object):
 
         raw_data = test_dataset.data    # is just one long array
         data_len = len(raw_data)
-        print('Data Length:', data_len)
+        print('Data Length:', data_len, flush=True)
         data_covered = 0
         end_file_id = test_dataset.vocab["-eod-"]
         start_index = 0
@@ -1020,7 +1017,7 @@ class NLM(object):
 
             file_data = raw_data[file_start_index:data_covered]
             file_start_index = data_covered
-            print('Completion Length:', len(file_data))
+            print('Completion Length:', len(file_data), flush=True)
 
             if not id_map is None: file_ids = id_map[files_done] + [0]
             else: file_ids = [0] * (len(file_data) - 1)
@@ -1103,6 +1100,7 @@ class NLM(object):
                     continue
                 else:
                     tokens_done += 1
+                    identifiers += 1
                     if not id_map is None and is_id:
                         identifiers += 1
                         file_identifiers += 1
@@ -1213,7 +1211,7 @@ class NLM(object):
                         if FLAGS.token_model and correct_token == '-UNK-':
                             break
                         if (correct_token == '-UNK-' or '-UNK-' in correct_subtokens) and FLAGS.completion_unk_wrong:
-                                break
+                            break
                         if verbose: print(prob, prediction)
                         if not correct_found:
                             rank += 1
@@ -1223,7 +1221,15 @@ class NLM(object):
                             correct_found = True
                             if verbose: print('MRR:', mrr / tokens_done)
                             if verbose: print()
-                            
+                            id_mrr += 1.0 / rank
+                            if rank <= 1:
+                                id_acc1 += 1.0
+                            if rank <= 3:
+                                id_acc3 += 1.0
+                            if rank <= 5:
+                                id_acc5 += 1.0
+                            if rank <= 10:
+                                id_acc10 += 1.0
                             if is_id:
                                 id_mrr += 1.0 / rank
                                 if rank <= 1:
@@ -1234,6 +1240,7 @@ class NLM(object):
                                     id_acc5 += 1.0
                                 if rank <= 10:
                                     id_acc10 += 1.0
+                            break
                     if not correct_found:
                             rank += 1
                     # if is_id: print(correct_token.replace('@@', ''), full_tokens, '\n')
@@ -1430,6 +1437,15 @@ class NLM(object):
                         if verbose: print('MRR:', mrr / tokens_done)
                         if verbose: print()
                         
+                        id_mrr += 1.0 / (i + 1)
+                        if (i + 1) <= 1:
+                            id_acc1 += 1.0
+                        if (i + 1) <= 3:
+                            id_acc3 += 1.0
+                        if (i + 1) <= 5:
+                            id_acc5 += 1.0
+                        if (i + 1) <= 10:
+                            id_acc10 += 1.0
                         if is_id:
                             id_mrr += 1.0 / (i + 1)
                             if (i + 1) <= 1:
@@ -1471,17 +1487,19 @@ class NLM(object):
                 _, cost, train_state, loss, iteration = session.run(
                     [self.train_step, self.cost, self.next_state, self.loss, self.iteration], feed_dict)
 
-            print(files_done, 'MRR:', mrr / tokens_done)
+            print(files_done, 'MRR:', mrr / tokens_done, flush=True)
+            print(id_mrr / identifiers, id_acc1 / identifiers, id_acc3 / identifiers, \
+                    id_acc5 / identifiers, id_acc10 / identifiers, flush=True)
             if not id_map is None :
                 print(id_mrr / identifiers, id_acc1 / identifiers, id_acc3 / identifiers, \
-                    id_acc5 / identifiers, id_acc10 / identifiers)
+                    id_acc5 / identifiers, id_acc10 / identifiers, flush=True)
                 if file_identifiers > 0:
-                    print('File cache recall', ids_in_cache / file_identifiers)
-                    print('Project cache recall', ids_in_project_cache / file_identifiers)
-                    print('File context recall', context_history_in_ngram_cache / file_identifiers )
-                    print('Project context recall', context_history_in_ngram_project_cache / file_identifiers )
+                    print('File cache recall', ids_in_cache / file_identifiers, flush=True)
+                    print('Project cache recall', ids_in_project_cache / file_identifiers, flush=True)
+                    print('File context recall', context_history_in_ngram_cache / file_identifiers, flush=True)
+                    print('Project context recall', context_history_in_ngram_project_cache / file_identifiers, flush=True)
 
-        print('Tokens scored:', tokens_done)
+        print('Tokens scored:', tokens_done, flush=True)
         return mrr / tokens_done
     
 
@@ -2108,6 +2126,9 @@ def main(_):
 
         exit_criteria = ExitCriteria(config.max_epoch)
 
+        if not os.path.exists(FLAGS.train_dir):
+            os.makedirs(FLAGS.train_dir)
+
         if FLAGS.predict:
             # Runs the predictability scenario (per file entropy/perplexity).
             vocab_path = FLAGS.train_dir + "/vocab.txt"
@@ -2222,9 +2243,9 @@ def main(_):
 
                     mrr = model.completion(session, config, test_dataset, test_proj_lines, config.batch_size, \
                         FLAGS.dynamic, id_map, FLAGS.cache_ids, token_map)
-                    print(mrr)
-            print("Total time %s" % timedelta(seconds=time.time() - start_time))
-            print("Done completion!")
+                    print(mrr, flush=True)
+            print("Total time %s" % timedelta(seconds=time.time() - start_time), flush=True)
+            print("Done completion!", flush=True)
         elif FLAGS.maintenance_completion:
             # Runs the maintenance code completion scenario and calculates MRR.
             vocab_path = FLAGS.train_dir + "/vocab.txt"
@@ -2252,6 +2273,7 @@ def main(_):
             train_file = FLAGS.data_path + '/' + FLAGS.train_filename #"/java_10M_train_bpe"
             valid_file = FLAGS.data_path + '/' + FLAGS.validation_filename #"/java_validation_10%_sample_bpe"
             train_vocab, train_vocab_rev = reader._build_vocab(train_file, FLAGS.thresh)
+            print("Read data from {}".format(FLAGS.data_path))
             print("Vocabulary size:", len(train_vocab))
             config.vocab_size = len(train_vocab) # change so that vocab also reflects UNK, EMPTY, EOS etc
             reader._write_vocab(train_vocab, FLAGS.train_dir + "/vocab.txt")
