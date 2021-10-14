@@ -50,14 +50,14 @@ def token_to_subtoken_map(id_map, subtokenized_code, code=None):
 if __name__ == "__main__":
     file = "./data/c-corpus/test"
     
-    bpe2000_file = "./data/c-corpus/split/test_2000"
-    bpe5000_file = "./data/c-corpus/split/test_5000"
-    bpe10000_file = "./data/c-corpus/split/test_10000"
+    bpe2000_file = "./data/c-corpus/merge/test_2000"
+    bpe5000_file = "./data/c-corpus/merge/test_5000"
+    bpe10000_file = "./data/c-corpus/merge/test_10000"
 
     
-    bpe2000_map_file = "./data/c-corpus/split/id_test_2000"
-    bpe5000_map_file = "./data/c-corpus/split/id_test_5000"
-    bpe10000_map_file = "./data/c-corpus/split/id_test_10000"
+    bpe2000_map_file = "./data/c-corpus/merge/id_test_2000"
+    bpe5000_map_file = "./data/c-corpus/merge/id_test_5000"
+    bpe10000_map_file = "./data/c-corpus/merge/id_test_10000"
     
     with open(file, 'r') as fr, open(bpe2000_file, 'r') as f_bpe2000, open(bpe5000_file, 'r') as f_bpe5000, \
             open(bpe10000_file, 'r') as f_bpe10000, open(bpe2000_map_file, 'w') as fw_bpe2000, \
