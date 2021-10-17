@@ -1,5 +1,5 @@
 import sys
-JAVA_KEYWORDS = set(["auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "inline", "int", "long", "register", "restrict", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while", "_Alignas", "_Alignof", "_Atomic", "_Bool", "_Complex", "_Generic", "_Imaginary", "_Noreturn", "_Static_assert", "_Thread_local", "__func__"])
+JAVA_KEYWORDS = set(["abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "const", "continue", "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "if", "goto", "implements", "import", "instanceof", "int", "interface", "long", "native", "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while"])
 
 
 def get_Java_identifier_mapping(code):
@@ -48,44 +48,48 @@ def token_to_subtoken_map(id_map, subtokenized_code, code=None):
 
 
 if __name__ == "__main__":
-    file = "./data/c-corpus/test"
+    file = "./data/java-corpus/split/test_id"
     
-    bpe2000_file = "./data/c-corpus/merge/test_2000"
-    bpe5000_file = "./data/c-corpus/merge/test_5000"
-    bpe10000_file = "./data/c-corpus/merge/test_10000"
+    bpe2000_file = "./data/java-corpus/split/test_2000"
+    bpe5000_file = "./data/java-corpus/split/test_5000"
+    bpe10000_file = "./data/java-corpus/split/test_split_10000"
 
     
-    bpe2000_map_file = "./data/c-corpus/merge/id_test_2000"
-    bpe5000_map_file = "./data/c-corpus/merge/id_test_5000"
-    bpe10000_map_file = "./data/c-corpus/merge/id_test_10000"
+    bpe2000_map_file = "./data/java-corpus/split/id_test_2000"
+    bpe5000_map_file = "./data/java-corpus/split/id_test_5000"
+    bpe10000_map_file = "./data/java-corpus/split/id_test_split_10000"
     
-    with open(file, 'r') as fr, open(bpe2000_file, 'r') as f_bpe2000, open(bpe5000_file, 'r') as f_bpe5000, \
-            open(bpe10000_file, 'r') as f_bpe10000, open(bpe2000_map_file, 'w') as fw_bpe2000, \
-                    open(bpe5000_map_file, 'w') as fw_bpe5000, open(bpe10000_map_file, 'w') as fw_bpe10000:
-        for line, bpe2000_line, bpe5000_line, bpe10000_line in zip(fr, f_bpe2000, f_bpe5000, f_bpe10000):
+    with open(file, 'r') as fr, open(bpe10000_file, 'r') as f_bpe10000, open(bpe10000_map_file, 'w') as fw_bpe10000:
+        # open(bpe2000_file, 'r') as f_bpe2000,\
+        # open(bpe5000_file, 'r') as f_bpe5000,\
+        # open(bpe2000_map_file, 'w') as fw_bpe2000, \
+        # open(bpe5000_map_file, 'w') as fw_bpe5000, \
+        
+        # for line, bpe2000_line, bpe5000_line, bpe10000_line in zip(fr, f_bpe2000, f_bpe5000, f_bpe10000):
+        for line, bpe10000_line in zip(fr, f_bpe10000):
             # use in java
-            # code = line.rstrip('\n')[4: -5].split()
+            code = line.rstrip('\n')[4: -5].split()
             # code_bpe2000 = bpe2000_line.rstrip('\n')[4: -5].split()
             # code_bpe5000 = bpe5000_line.rstrip('\n')[4: -5].split()
-            # code_bpe10000 = bpe10000_line.rstrip('\n')[4: -5].split()
+            code_bpe10000 = bpe10000_line.rstrip('\n')[4: -5].split()
 
 
-            code = line.rstrip('\n').split()
-            code_bpe2000 = bpe2000_line.rstrip('\n').split()
-            code_bpe5000 = bpe5000_line.rstrip('\n').split()
-            code_bpe10000 = bpe10000_line.rstrip('\n').split()
+            # code = line.rstrip('\n').split()
+            # code_bpe2000 = bpe2000_line.rstrip('\n').split()
+            # code_bpe5000 = bpe5000_line.rstrip('\n').split()
+            # code_bpe10000 = bpe10000_line.rstrip('\n').split()
             
             identifier_mapping = get_Java_identifier_mapping(code)
             assert(len(identifier_mapping) == len(code))
-            bpe2000_id_mapping = token_to_subtoken_map(identifier_mapping, code_bpe2000)
-            bpe5000_id_mapping = token_to_subtoken_map(identifier_mapping, code_bpe5000)
+            # bpe2000_id_mapping = token_to_subtoken_map(identifier_mapping, code_bpe2000)
+            # bpe5000_id_mapping = token_to_subtoken_map(identifier_mapping, code_bpe5000)
             bpe10000_id_mapping = token_to_subtoken_map(identifier_mapping, code_bpe10000)
             
-            fw_bpe2000.write(str(bpe2000_id_mapping))
-            fw_bpe2000.write('\n')
+            # fw_bpe2000.write(str(bpe2000_id_mapping))
+            # fw_bpe2000.write('\n')
             
-            fw_bpe5000.write(str(bpe5000_id_mapping))
-            fw_bpe5000.write('\n')
+            # fw_bpe5000.write(str(bpe5000_id_mapping))
+            # fw_bpe5000.write('\n')
 
             fw_bpe10000.write(str(bpe10000_id_mapping))
             fw_bpe10000.write('\n')

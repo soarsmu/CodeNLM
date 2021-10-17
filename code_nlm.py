@@ -10,9 +10,7 @@ import math
 import json
 import os.path
 import sys
-import shutil
 import heapq
-import pygtrie as trie
 
 from collections import deque
 from itertools import chain
@@ -355,12 +353,6 @@ class NLM(object):
             # norm_logits, loss, cost, state = session.run([self.norm_logits, self.loss, self.cost, self.next_state], feed_dict)
             loss, cost, state = session.run([self.loss, self.cost, self.next_state], feed_dict)
 
-            if FLAGS.token_model:
-                targets = [t for tar in target for t in tar]
-                voc_size = 10500000
-                loss = [-math.log(1.0/voc_size, 2) if t == self.train_vocab["-UNK-"] else l
-                                for l,t in zip(loss, targets) ]
-
             log_perp_unnorm += np.sum(loss)
 
             if FLAGS.word_level_perplexity:
@@ -563,7 +555,7 @@ class NLM(object):
                 # Search can stop earlier if the best current candidate has score worst than that
                 # of the worst one of the initial full_tokens since it would be pointless to further continue the search
                 search_iterations = 0
-                while full_tokens_scored < 5000 and prob_mass <= satisfaction_prob and search_iterations < 8:
+                while full_tokens_scored < 5000 and prob_mass <= satisfaction_prob and search_iterations < 6:
                     search_iterations += 1
                     # Create a beam of new candidates until 500 full tokens have been produced
                     to_expand = []
