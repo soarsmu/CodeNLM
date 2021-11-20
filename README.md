@@ -62,7 +62,7 @@ LR=0.1
 # Training batch size
 BATCH_SIZE=32
 # RNN unroll timesteps for gradient calculation.
-STEPS=20 # 20-50 is a good range of values for dynamic experiments.
+STEPS=200
 # 1 - Dropout probability
 KEEP_PROB=0.5 
 # RNN hidden state size
