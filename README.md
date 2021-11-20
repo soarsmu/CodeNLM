@@ -4,21 +4,22 @@
 
 **reader.py** contains utility functions for reading data and providing batches for training and testing of models.
 
-**code_nlm.py** contains the implementation of our NLM for code and supports training, perplexity/cross-entropy calculation, code-completion simulation, measuring identifier specific performance for code completion.
+**code_nlm.py** contains the implementation of LMs for code and supports training, perplexity/cross-entropy calculation, code-completion simulation, measuring identifier specific performance for code completion.
 
 # Usage
 
 ## Installation
-Please use docker `jiekeshi/vocab:v2`
+```
+# Python==3.6` is required, `Python>3.6` may not supported due to the tensorflow version.
+pip install numpy==1.18.1 
+pip install tensorflow-gpu==1.12.3
+```
+
 
 ## Dataset
-sample data https://drive.google.com/file/d/1m1ZVN9E58FXE6i9uzsbG6vJU2IOWoq75/view?usp=sharing
+ https://doi.org/10.5281/zenodo.3628775 
 
-Java corpus https://doi.org/10.7488/ds/1690 
-
-C corpus https://doi.org/10.5281/zenodo.3628775 
-
-Python corpus https://doi.org/10.5281/zenodo.3628784
+ https://doi.org/10.5281/zenodo.3628784
 
 ## Option Constants
 Let's first define constants for pointing to the data and network parameters. You'll need to modify these to point to your own data and satisfy the hyperparameters that you want to use.
@@ -132,9 +133,14 @@ To apply byte pair encoding to word segmentation, invoke these commands:
 subword-nmt learn-bpe -s {num_operations} < {train_file} > {codes_file}
 subword-nmt apply-bpe -c {codes_file} < {test_file} > {out_file}
 ```
-num_operations = The number of BPE ops e.g., 10000 <br/>
-train_file = The file on which to learn the encoding <br/>
-codes_file = The file in which to output the learned encoding <br/>
-test_file = The file to segment with the learned encoding <br/>
-out_file = The file in which to save the now segmented test_file <br/>
+num_operations = The number of BPE ops e.g., 10000
+
+train_file = The file on which to learn the encoding
+
+codes_file = The file in which to output the learned encoding
+
+test_file = The file to segment with the learned encoding
+
+out_file = The file in which to save the now segmented test_file
+
 
