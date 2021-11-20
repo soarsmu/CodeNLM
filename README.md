@@ -10,7 +10,7 @@
 
 ## Installation
 ```
-# Python==3.6` is required, `Python>3.6` may not supported due to the tensorflow version.
+# Python==3.6 is required, Python>3.6 may not supported due to the tensorflow version.
 pip install numpy==1.18.1 
 pip install tensorflow-gpu==1.12.3
 ```
@@ -74,14 +74,14 @@ python code_nlm.py --data_path $DATA_HOME --train_dir $MODEL_DIR --train_filenam
 ```
 
 ## Test Scenarios
-### Test Entropy Calculation
+### Entropy Calculation
 ```
 # Calculating test set entropy
 python code_nlm.py --test True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True
 ```
 
 ### Test Code Completion
-In this scenario the *batch_size* option is used to set the beam size.
+In this scenario the batch_size option is used to set the beam size.
 ```
 python code_nlm.py --completion True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --gru True --batch_size $BATCH_SIZE
 ```
