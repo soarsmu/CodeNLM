@@ -1,30 +1,21 @@
 from __future__ import print_function
 
+import sys
 import ast
-
 import time
-from datetime import timedelta
-
-import inspect
 import math
 import json
-import os.path
-import sys
 import heapq
+import reader
+import inspect
+import os.path
+import numpy as np
+import tensorflow as tf
 
+from datetime import timedelta
 from collections import deque
 from itertools import chain
 from operator import itemgetter
-
-import numpy as np
-import tensorflow as tf
-import reader
-
-# BPE imports
-# import codecs
-# from subword_nmt.apply_bpe import BPE, read_vocabulary
-
-
 
 flags = tf.flags
 # Path options 
@@ -34,23 +25,16 @@ flags.DEFINE_string("train_dir", None, "Output directory for saving the model.")
 # Scenario options. Training is default so, no option for it.
 flags.DEFINE_boolean("predict", False, "Set to True for computing predictability.")
 flags.DEFINE_boolean("test", False, "Set to True for computing test perplexity.")
-flags.DEFINE_boolean("dynamic_test", False, "Set to True for performing dynamic train-testing perplexity calculation (only one train epoch).")
 flags.DEFINE_boolean("maintenance_test", False, "Set to True for performing maintenance train-testing perplexity simulation (only one train epoch).")
 flags.DEFINE_boolean("completion", False, "Set to True to run code completion experiment.")
 flags.DEFINE_boolean("maintenance_completion", False, "Set to True to run maintenance code completion experiment")
-flags.DEFINE_boolean("dynamic", False, "Set to True to run dynamic code completion experiment.")
 
 # Filename/path options
 flags.DEFINE_string("train_filename", None, "The train file on which to train.")
 flags.DEFINE_string("validation_filename", None, "The test file on which to run validation.")
 flags.DEFINE_string("test_filename", None, "The test file on which to compute perplexity or predictability.")
-flags.DEFINE_string("test_proj_filename", None, "The file that contains the test project name for each test instance.")
 flags.DEFINE_string("identifier_map", None, "The file that contains information about which tokens are identifiers.")
-flags.DEFINE_boolean("cache_ids", False, "Set to True to cache project identifiers during completion.")
-# flags.DEFINE_string("BPE", None, "The file containing the BPE encoding.")
 flags.DEFINE_string("subtoken_map", None, "Contains the mapping from heyristic subtokens to tokens.")
-
-# flags.DEFINE_string("output_probs_file", "predictionProbabilities.txt", "The file to store output probabilities.")
 
 # Network architecture/hyper-parameter options
 flags.DEFINE_integer("num_layers", 1, "Number of Layers. Using a single layer is advised.")
@@ -68,9 +52,6 @@ flags.DEFINE_float("learning_rate", 0.1, "Learning rate")
 flags.DEFINE_float("max_grad_norm", 5.0, "Clip gradients to this norm")
 flags.DEFINE_float("lr_decay", 0.5, "Learning rate decay. Default is 0.5 which halves the learning rate.")
 
-# n-gram identifier cache options
-flags.DEFINE_float("file_cache_weight", 0.2, "Weight of the file cache.")
-flags.DEFINE_integer("cache_order", 6, "n-gram order for the identifier cache")
 
 flags.DEFINE_integer("thresh", 0, "Threshold for vocabulary inclusion.")
 flags.DEFINE_boolean("unk", True, "use -UNK- token to model OOV.")
@@ -377,11 +358,10 @@ class NLM(object):
 
     def completion(self, session, config, test_dataset, beam_size, id_map=None):
         """
-        Runs code the code completion scenario. Dynamic update can be performed but by default is turned off.
+        Runs code the code completion scenario.
         :param session: The TF session in which operations should be run.
         :param config: The configuration to be used for the model.
         :param beam_size: The size of the beam to be used by the search algorithm.
-        :param dynamic: Whether dynamic adaptation should be performed.
         :return:
         """
         mrr = 0.0
@@ -435,7 +415,6 @@ class NLM(object):
 
             correct_token = ''
             
-            # for context_target_is_id in zip(file_data[:-1], file_data[1:], file_ids):
             for context_target_is_id in zip(file_data[:-1], file_data[1:], file_ids[1:]):
                 context, target, is_id = context_target_is_id
 
@@ -734,7 +713,7 @@ def main(_):
             print("Total time %s" % timedelta(seconds=time.time() - start_time))
             print("Done testing!")
         elif FLAGS.completion:
-            # Runs the code completion scenario and calculates MRR if dynamic adaptation is on it also adapts the model.
+            # Runs the code completion scenario and calculates MRR
             vocab_path = FLAGS.train_dir + "/vocab.txt"
             train_vocab, train_vocab_rev = reader._read_vocab(vocab_path)
             config.vocab_size = len(train_vocab)

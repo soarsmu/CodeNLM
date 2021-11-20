@@ -128,8 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-data/
+data/c
+data/java
+data/py
+
 *_logs
 bigcode
 
 split_model
+data/.DS_Store

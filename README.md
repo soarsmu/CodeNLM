@@ -1,11 +1,10 @@
 # Code Structure
-**non-ascii_sequences_to_unk.py** is a preprocessing script that can be used to remove non-ascii sequences from the data and replace them with a special symbol.
 
-**create_subtoken_data.py** is also a preprocessing script that can be used to subtokenize data based on the heuristic of [Allamanis et al. (2015)](https://miltos.allamanis.com/publications/2015suggesting/).
+**scripts** contains all shell scripts for running experiments.
 
 **reader.py** contains utility functions for reading data and providing batches for training and testing of models.
 
-**code_nlm.py** contains the implementation of our NLM for code and supports training, perplexity/cross-entropy calculation, code-completion simulation as well as dynamic versions of the test scenarios. The updated implementation has also some new features, previously not present in the code. That is measuring identifier specific performance for code completion. Another new feature implements a simple n-gram cache for identifiers that better simulates use of the model in an IDE where such information would be present. In order to use the identifier features a file containing identifier information must be provided through the options. 
+**code_nlm.py** contains the implementation of our NLM for code and supports training, perplexity/cross-entropy calculation, code-completion simulation, measuring identifier specific performance for code completion.
 
 # Usage
 
