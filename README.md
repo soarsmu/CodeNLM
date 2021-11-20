@@ -18,7 +18,9 @@ pip install tensorflow-gpu==1.12.3
 ## Dataset and Processing
 
 Training data: https://zenodo.org/record/3628638/files/small_training_set_pre?download=1
+
 Validation: https://zenodo.org/record/3628638/files/validation_set_pre?download=1
+
 Test: https://zenodo.org/record/3628638/files/c_test_set_pre?download=1
 
 **data/split.py** use Ronin to split identifers
