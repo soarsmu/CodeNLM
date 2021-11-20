@@ -164,17 +164,6 @@ def _get_unknown_id(vocab):
     """
     return vocab[UNKNOWN_WORD]
 
-# Not used anymore. I think so at least. CHECKKKKKKKKKKKK!!!!!!!!
-# def _create_dataset(wordlist, vocabulary):
-#     """
-#     Converts a list of subword_units/tokens/words in
-#     :param wordlist: A tokenized list of a dataset's contents. The vocabulary is used to assign ids to the tokens.
-#     :param vocabulary:
-#     :return: A dataset: containing the words encoded as ids
-#     """
-#     encoded = _get_ids_for_wordlist(wordlist, vocabulary)
-#     return dataset(encoded, vocabulary)
-
 
 class dataset(object):
     """
