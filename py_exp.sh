@@ -100,7 +100,7 @@ CUDA_VISIBLE_DEVICES=2 python code_nlm.py --data_path data/python-corpus/bigcode
 
 CUDA_VISIBLE_DEVICES=1 python code_nlm.py --data_path data/python-corpus/bigcode --train_dir data/python-corpus/bigcode/model_5000 --train_filename training_5000 --validation_filename validation_5000 --gru True --hidden_size $STATE_DIMS --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True --steps_per_checkpoint $CHECKPOINT_EVERY --max_epoch $EPOCHS | tee py_logs/bpe_5000.log &
 
-CUDA_VISIBLE_DEVICES=0 python code_nlm.py --data_path data/python-corpus/bigcode --train_dir data/python-corpus/bigcode/model_10000 --train_filename training_10000 --validation_filename validation_10000 --gru True --hidden_size $STATE_DIMS --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True --steps_per_checkpoint $CHECKPOINT_EVERY --max_epoch $EPOCHS | tee py_logs/bpe_10000.log &
+CUDA_VISIBLE_DEVICES=1 python code_nlm.py --data_path bigcode --train_dir bigcode/model_10000 --train_filename training_10000 --validation_filename validation_10000 --gru True --hidden_size 512 --batch_size 64 --word_level_perplexity True --cross_entropy True --steps_per_checkpoint 5000 --max_epoch 39 | tee py_logs/bpe_10000.log &
 
 CUDA_VISIBLE_DEVICES=1 python code_nlm.py --data_path data/python-corpus/merge --train_dir data/python-corpus/merge/model_2000 --train_filename training_2000 --validation_filename validation_2000 --gru True --hidden_size $STATE_DIMS --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True --steps_per_checkpoint $CHECKPOINT_EVERY --max_epoch $EPOCHS | tee py_logs/merge_2000.log &
 

@@ -16,5 +16,5 @@ CUDA_VISIBLE_DEVICES=3 python code_nlm.py --completion True --data_path data/c-c
 
 CUDA_VISIBLE_DEVICES=4 python code_nlm.py --completion True --data_path data/c-corpus/merge --train_dir data/c-corpus/merge/model_5000 --test_filename test_5000 --identifier_map data/c-corpus/merge/id_test_5000 --gru True --batch_size $BATCH_SIZE | tee c_logs/mrr_merge_5000.log &
 
-CUDA_VISIBLE_DEVICES=5 python code_nlm.py --completion True --data_path data/c-corpus/merge --train_dir data/c-corpus/merge/model_10000 --test_filename test_10000 --identifier_map data/c-corpus/merge/id_test_10000 --gru True --batch_size $BATCH_SIZE | tee c_logs/mrr_merge_10000.log &
+CUDA_VISIBLE_DEVICES=1 python code_nlm.py --completion True --data_path data/c_corpus --train_dir data/c_corpus/model_10000 --test_filename test_split_10000 --identifier_map data/c_corpus/id_test_split_10000 --gru True --batch_size 10 | tee c_logs/mrr_merge_10000.log &
 

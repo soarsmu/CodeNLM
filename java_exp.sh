@@ -99,7 +99,7 @@ CUDA_VISIBLE_DEVICES=2 python code_nlm.py --data_path data/java-corpus/bigcode -
 
 CUDA_VISIBLE_DEVICES=1 python code_nlm.py --data_path data/java-corpus/bigcode --train_dir data/java-corpus/bigcode/model_5000 --train_filename training_5000 --validation_filename validation_5000 --hidden_size $STATE_DIMS --gru True --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True --steps_per_checkpoint $CHECKPOINT_EVERY --max_epoch $EPOCHS | tee java_logs/bpe_5000.log &
 
-CUDA_VISIBLE_DEVICES=1 python code_nlm.py --data_path data/java-corpus/bigcode --train_dir data/java-corpus/bigcode/model_10000 --train_filename training_10000 --validation_filename validation_10000 --hidden_size 512 --gru True --batch_size 64 --word_level_perplexity True --cross_entropy True --steps_per_checkpoint 5000 --max_epoch 39 | tee java_logs/bpe_10000.log &
+CUDA_VISIBLE_DEVICES=1 python code_nlm.py --data_path data/merge --train_dir data/merge/model_10000 --train_filename training_split_10000 --validation_filename validation_split_10000 --hidden_size 512 --gru True --batch_size 64 --word_level_perplexity True --cross_entropy True --steps_per_checkpoint 5000 --max_epoch 39 | tee java_logs/merge_10000.log &
 
 CUDA_VISIBLE_DEVICES=1 python code_nlm.py --data_path data/java-corpus/merge --train_dir data/java-corpus/merge/model_2000 --train_filename training_2000 --validation_filename validation_2000 --hidden_size $STATE_DIMS --gru True --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True --steps_per_checkpoint $CHECKPOINT_EVERY --max_epoch $EPOCHS | tee java_logs/merge_2000.log &
 
@@ -107,4 +107,4 @@ CUDA_VISIBLE_DEVICES=2 python code_nlm.py --data_path data/java-corpus/merge --t
 
 CUDA_VISIBLE_DEVICES=0 python code_nlm.py --data_path data/java-corpus/merge --train_dir data/java-corpus/merge/model_10000 --train_filename training_10000 --validation_filename validation_10000 --hidden_size $STATE_DIMS --gru True --batch_size $BATCH_SIZE --word_level_perplexity True --cross_entropy True --steps_per_checkpoint $CHECKPOINT_EVERY --max_epoch $EPOCHS | tee java_logs/merge_10000.log &
 
-CUDA_VISIBLE_DEVICES=2 python code_nlm.py --data_path data/java-corpus/split --train_dir data/java-corpus/split/model_10000 --train_filename training_split_10000 --validation_filename validation_split_10000 --hidden_size 512 --gru True --batch_size 64 --word_level_perplexity True --cross_entropy True --steps_per_checkpoint 5000 --max_epoch 39 | tee java_logs/split_10000.log
+CUDA_VISIBLE_DEVICES=1 python code_nlm.py --data_path data/c/ori --train_dir data/c/ori/model --train_filename train --validation_filename validation --hidden_size 512 --gru True --batch_size 32 --word_level_perplexity True --cross_entropy True --steps_per_checkpoint 5000 --max_epoch 49 | tee c_logs/bpe.log

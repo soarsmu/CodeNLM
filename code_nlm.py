@@ -435,7 +435,8 @@ class NLM(object):
 
             correct_token = ''
             
-            for context_target_is_id in zip(file_data[:-1], file_data[1:], file_ids):
+            # for context_target_is_id in zip(file_data[:-1], file_data[1:], file_ids):
+            for context_target_is_id in zip(file_data[:-1], file_data[1:], file_ids[1:]):
                 context, target, is_id = context_target_is_id
 
                 feed_dict = {self.inputd: np.array([[context]] * self.batch_size),
@@ -555,7 +556,7 @@ class NLM(object):
                 # Search can stop earlier if the best current candidate has score worst than that
                 # of the worst one of the initial full_tokens since it would be pointless to further continue the search
                 search_iterations = 0
-                while full_tokens_scored < 5000 and prob_mass <= satisfaction_prob and search_iterations < 6:
+                while full_tokens_scored < 5000 and prob_mass <= satisfaction_prob and search_iterations < 8:
                     search_iterations += 1
                     # Create a beam of new candidates until 500 full tokens have been produced
                     to_expand = []
