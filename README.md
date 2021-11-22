@@ -1,5 +1,7 @@
 # Code Structure
 
+**data** contains scripts for processing data.
+
 **scripts** contains all shell scripts for running experiments.
 
 **reader.py** contains utility functions for reading data and providing batches for training and testing of models.
@@ -16,6 +18,8 @@ pip install tensorflow-gpu==1.12.3
 ```
 
 ## Dataset and Processing
+
+The dataset is from [Karampatsis et al.'s work](https://dl.acm.org/doi/10.1145/3377811.3380342).
 
 Training data: https://zenodo.org/record/3628638/files/small_training_set_pre?download=1
 
