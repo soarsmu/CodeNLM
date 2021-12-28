@@ -100,3 +100,18 @@ Or identifiers only:
 python code_nlm.py --completion True --data_path $DATA_HOME --train_dir $MODEL_DIR --test_filename $TEST_FILE --identifier_map $ID_MAP_FILE --gru True --batch_size $BATCH_SIZE
 ```
 
+# Misc
+
+Thanks for the open-source code from https://github.com/mast-group/OpenVocabCodeNLM.git.
+
+If you meet any problems when using the code, please contact Jieke SHI by [jiekeshi@smu.edu.sg](mailto:jiekeshi@smu.edu.sg). Many thanks!
+
+Please cite our paper if you are using our code:
+
+```
+@misc{shi2021canis,
+      title={Can Identifier Splitting Improve Open-Vocabulary Language Model of Code?}, 
+      author={Jieke Shi and Zhou Yang and Junda He and Bowen Xu and David Lo},
+      year={2021}
+}
+```
