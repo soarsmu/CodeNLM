@@ -1,3 +1,7 @@
+# Introduction
+
+This is the replication package for the paper "Can Identifier Splitting Improve Open-Vocabulary Language Model of Code?" (SANER 2021 ERA).
+
 # Code Structure
 
 **data** contains scripts for processing data.
