@@ -1,6 +1,6 @@
 # Introduction
 
-This is the replication package for the paper "Can Identifier Splitting Improve Open-Vocabulary Language Model of Code?" (SANER 2021 ERA).
+This is the replication package for the paper "Can Identifier Splitting Improve Open-Vocabulary Language Model of Code?" (SANER 2021 ERA) [[arXiv]](https://arxiv.org/abs/2201.01988).
 
 # Code Structure
 
@@ -109,9 +109,12 @@ If you meet any problems when using the code, please contact Jieke SHI by [jieke
 Please cite our paper if you are using our code:
 
 ```
-@misc{shi2021canis,
+@misc{shi2022identifier,
       title={Can Identifier Splitting Improve Open-Vocabulary Language Model of Code?}, 
       author={Jieke Shi and Zhou Yang and Junda He and Bowen Xu and David Lo},
-      year={2021}
+      year={2022},
+      eprint={2201.01988},
+      archivePrefix={arXiv},
+      primaryClass={cs.SE}
 }
 ```
