@@ -109,12 +109,12 @@ If you meet any problems when using the code, please contact Jieke SHI by [jieke
 Please cite our paper if you are using our code:
 
 ```
-@misc{shi2022identifier,
-      title={Can Identifier Splitting Improve Open-Vocabulary Language Model of Code?}, 
-      author={Jieke Shi and Zhou Yang and Junda He and Bowen Xu and David Lo},
-      year={2022},
-      eprint={2201.01988},
-      archivePrefix={arXiv},
-      primaryClass={cs.SE}
+@inproceedings{shi2022can,
+  title={Can Identifier Splitting Improve Open-Vocabulary Language Model of Code?},
+  author={Shi, Jieke and Yang, Zhou and He, Junda and Xu, Bowen and Lo, David},
+  booktitle={2022 IEEE International Conference on Software Analysis, Evolution and Reengineering (SANER)},
+  pages={1134--1138},
+  year={2022},
+  organization={IEEE}
 }
 ```
